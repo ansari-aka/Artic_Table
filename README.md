@@ -1,75 +1,56 @@
-# React + TypeScript + Vite
+# Assignment – Artwork Data Table
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React + TypeScript application built using **Vite**.  
+It displays artwork data from the **Art Institute of Chicago API** using **PrimeReact DataTable** with **server-side pagination** and **persistent row selection**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## React Compiler
+- **React** (Vite)
+- **TypeScript**
+- **PrimeReact**
+- **PrimeIcons**
+- **CSS**
+- **Art Institute of Chicago API**
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 📦 Project Setup
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+## ✨ Features
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Server-side Pagination (Lazy Loading)**
+  - Loads artworks page-by-page from the API.
+  - Uses PrimeReact `DataTable` with `paginator` + `lazy` + `onPage`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Loading & Error States**
+  - Shows a loading indicator while fetching data.
+  - Displays API/network errors gracefully.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Checkbox Row Selection**
+  - Select individual rows using checkboxes.
+  - Supports select-all for the **current page** (PrimeReact behavior).
+
+- **Persistent Selection Across Pages (Visited Pages)**
+  - Keeps selected items even when the user navigates to different pages.
+  - Stores selection as a global `Set<number>` of IDs (`selectedIds`) for performance.
+  - Reconstructs current page selected row objects using:
+    - `currentPageSelection = pageRows.filter(row => selectedIds.has(row.id))`
+
+- **"Select N (This Page)" Custom Action**
+  - Opens an OverlayPanel to input a number `N`.
+  - Selects the first `N` rows **only from the currently loaded page**.
+  - Does **not** trigger extra API calls.
+
+- **Performance Optimizations**
+  - Uses `useMemo` to compute selection for the current page efficiently.
+  - Uses `Set.has()` for O(1) membership checks.
+
+- **Clean & Typed Code (TypeScript)**
+  - Typed API response and row model (`Artwork`, `ApiResponse`).
+  - Typed PrimeReact events (`DataTablePageEvent`, `DataTableSelectionMultipleChangeEvent`).
