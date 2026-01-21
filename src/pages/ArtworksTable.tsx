@@ -175,6 +175,8 @@ export default function ArtworksTable() {
                 loading={loading}
                 paginator
                 lazy
+                cellSelection={false}
+                selectionMode="multiple"
                 rows={rows}
                 first={(page - 1) * rows}
                 totalRecords={totalRecords}
