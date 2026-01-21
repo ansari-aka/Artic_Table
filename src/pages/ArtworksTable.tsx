@@ -171,9 +171,8 @@ export default function ArtworksTable() {
             <DataTable
                 value={pageRows}
                 dataKey="id"
-                className="artworks-table"
+                className="artworks-table compact-table"
                 loading={loading}
-                size="small"
                 paginator
                 lazy
                 rows={rows}

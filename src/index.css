@@ -11,6 +11,30 @@
   margin-right: auto;
 }
 
+/* Compact DataTable */
+.compact-table .p-datatable-thead > tr > th,
+.compact-table .p-datatable-tbody > tr > td {
+  padding: 0.35rem 0.5rem;   /* reduce cell padding */
+  font-size: 0.85rem;       /* smaller text */
+}
+
+/* Compact paginator */
+.compact-table .p-paginator {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+/* Compact checkbox */
+.compact-table .p-checkbox {
+  transform: scale(0.85);
+}
+
+/* Compact header checkbox alignment */
+.compact-table .p-column-header-content {
+  gap: 0.3rem;
+}
+
+
 /* Make header content align checkbox + arrow horizontally */
 .artworks-table
   .p-datatable-thead
